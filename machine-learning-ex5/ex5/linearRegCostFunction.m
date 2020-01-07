@@ -18,12 +18,15 @@ grad = zeros(size(theta));
 %
 %               You should set J to the cost and grad to the gradient.
 %
+h_x = X*theta;
+seq_err_func = (h_x - y).^2;
+reg_pnlty = theta(2:end).^2;
 
+J = (1/(2*m))*sum(seq_err_func) + (lambda/(2*m))*sum(reg_pnlty);
 
+grad(1) = (1/m)*sum(((h_x - y).*X(:,1)));
 
-
-
-
+grad(2:end) = (1/m)*sum((h_x - y).*X(:,2:end))' + (lambda/m)*theta(2:end);
 
 
 
